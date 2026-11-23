@@ -43,7 +43,7 @@ function GroupLabel({ children }: { children: ReactNode }) {
 }
 
 // Sub-views surfaced as a sidebar subnav: account sign-in vs raw API keys.
-export const PROVIDER_VIEWS = ['accounts', 'keys'] as const
+export const PROVIDER_VIEWS = ['accounts', 'custom-endpoints', 'keys'] as const
 
 export type ProviderView = (typeof PROVIDER_VIEWS)[number]
 
@@ -297,6 +297,7 @@ function NoProviderKeys() {
 }
 
 export function ProvidersSettings({ onClose, onViewChange, view }: ProvidersSettingsProps) {
+
   const { t } = useI18n()
   const { rowProps, vars } = useEnvCredentials()
   const [oauthProviders, setOauthProviders] = useState<OAuthProvider[]>([])

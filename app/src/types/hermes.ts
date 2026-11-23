@@ -593,6 +593,10 @@ export interface ProfileCreatePayload {
 }
 
 export interface ProfileInfo {
+  /** Presentation-only label override (profile.yaml display_name). */
+  display_name?: string
+  /** Bot Mode title (profile.yaml ui_meta['hermes-bots'].title). Presentation-only. */
+  bot_title?: string
   has_env: boolean
   is_default: boolean
   model: null | string
@@ -1121,4 +1125,66 @@ export interface WebhookEnableResponse {
   restart_error?: string
   restart_pid?: null | number
   restart_started?: boolean
+}
+
+// ── Custom endpoints (OpenAI-compatible provider endpoints) ────────────────
+export type CustomEndpointApiMode = '' | 'anthropic_messages' | 'chat_completions' | 'codex_responses'
+
+export interface CustomEndpoint {
+  api_key_preview?: null | string
+  api_mode?: CustomEndpointApiMode
+  base_url: string
+  context_length?: null | number
+  discover_models: boolean
+  has_api_key: boolean
+  id: string
+  is_current?: boolean
+  model: string
+  models: string[]
+  name: string
+  source?: string
+}
+
+export interface CustomEndpointModelDetail {
+  canonical_model?: null | string
+  id: string
+  reasoning_effort?: null | string
+}
+
+export interface CustomEndpointUpdate {
+  api_key?: string
+  api_mode?: CustomEndpointApiMode
+  base_url: string
+  context_length?: number
+  discover_models?: boolean
+  id?: string
+  make_default?: boolean
+  model: string
+  model_details?: CustomEndpointModelDetail[]
+  models?: string[]
+  name: string
+}
+
+export interface CustomEndpointsResponse {
+  current: {
+    base_url: string
+    model: string
+    provider: string
+  }
+  endpoints: CustomEndpoint[]
+  id?: string
+  ok?: boolean
+}
+
+export interface CustomEndpointValidationResponse {
+  message: string
+  /** Older backends send only `models`. */
+  model_details?: CustomEndpointModelDetail[]
+  models: string[]
+  ok: boolean
+  reachable: boolean
+  // Base URL that actually served /models (the entered URL or its /v1 variant); persist this one.
+  resolved_base_url?: string
+  /** The transport whose route the backend probed (pinned api_mode, or the runtime's URL auto-detect). */
+  transport_checked?: CustomEndpointApiMode
 }

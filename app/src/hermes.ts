@@ -14,6 +14,9 @@ import type {
   CronJobCreatePayload,
   CronJobUpdates,
   CuratorStatusResponse,
+  CustomEndpointsResponse,
+  CustomEndpointUpdate,
+  CustomEndpointValidationResponse,
   DebugShareResponse,
   ElevenLabsVoicesResponse,
   EnvVarInfo,
@@ -108,6 +111,11 @@ export type {
   CronJobSchedule,
   CronJobUpdates,
   CuratorStatusResponse,
+  CustomEndpointApiMode,
+  CustomEndpointModelDetail,
+  CustomEndpointsResponse,
+  CustomEndpointUpdate,
+  CustomEndpointValidationResponse,
   DebugShareResponse,
   ElevenLabsVoice,
   ElevenLabsVoicesResponse,
@@ -1315,5 +1323,52 @@ export function setWebhookEnabled(
     path: withProfile(`/api/webhooks/${encodeURIComponent(name)}/enabled`, profile),
     method: 'PUT',
     body: { enabled }
+  })
+}
+
+// ── Custom endpoints (provider endpoints) ───────────────────────────────────
+// OpenAI-compatible endpoints configured per profile. Save validates nothing —
+// use validateCustomEndpoint for reachability/model discovery.
+
+export function getCustomEndpoints(profile?: null | string): Promise<CustomEndpointsResponse> {
+  return window.hermesDesktop.api<CustomEndpointsResponse>({ path: withProfile('/api/providers/custom-endpoints', profile) })
+}
+
+export function saveCustomEndpoint(
+  endpoint: CustomEndpointUpdate,
+  profile?: null | string
+): Promise<CustomEndpointsResponse> {
+  return window.hermesDesktop.api<CustomEndpointsResponse>({
+    path: withProfile('/api/providers/custom-endpoints', profile),
+    method: 'POST',
+    body: endpoint
+  })
+}
+
+export function validateCustomEndpoint(
+  endpoint: CustomEndpointUpdate,
+  profile?: null | string
+): Promise<CustomEndpointValidationResponse> {
+  return window.hermesDesktop.api<CustomEndpointValidationResponse>({
+    path: withProfile('/api/providers/custom-endpoints/validate', profile),
+    method: 'POST',
+    body: endpoint
+  })
+}
+
+export function activateCustomEndpoint(
+  id: string,
+  profile?: null | string
+): Promise<{ ok: boolean; provider: string; model: string }> {
+  return window.hermesDesktop.api<{ ok: boolean; provider: string; model: string }>({
+    path: withProfile(`/api/providers/custom-endpoints/${encodeURIComponent(id)}/activate`, profile),
+    method: 'POST'
+  })
+}
+
+export function deleteCustomEndpoint(id: string, profile?: null | string): Promise<CustomEndpointsResponse> {
+  return window.hermesDesktop.api<CustomEndpointsResponse>({
+    path: withProfile(`/api/providers/custom-endpoints/${encodeURIComponent(id)}`, profile),
+    method: 'DELETE'
   })
 }

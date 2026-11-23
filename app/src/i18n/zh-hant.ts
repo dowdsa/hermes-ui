@@ -198,6 +198,51 @@ export const zhHant = defineLocale({
   },
 
   settings: {
+    customEndpoints: {
+      active: '已啟用',
+      apiKeySet: '已設定 API 金鑰',
+      use: '使用',
+      editTitle: '編輯端點',
+      addTitle: '新增端點',
+      fields: {
+        name: '名稱',
+        providerId: '供應商 ID',
+        endpointUrl: '端點 URL',
+        defaultModel: '預設模型',
+        context: '上下文',
+        apiKey: 'API 金鑰',
+        apiKeyNewPlaceholder: '留空以保留目前金鑰',
+        apiKeyPlaceholder: '選填',
+        useNewChats: '用於新對話',
+        discoverModels: '探索模型'
+      },
+      test: '測試',
+      save: '儲存',
+      newEndpoint: '新增端點',
+      apiMode: 'API 模式',
+      autoDetect: '自動偵測',
+      couldNotLoad: '無法載入自訂端點',
+      endpointSaved: '自訂端點已儲存。',
+      saveFailed: '儲存失敗',
+      endpointReachable: '端點可連線。',
+      endpointReachableTransport: transport => `端點可連線（${transport} 路由已回應）。`,
+      endpointReachableModels: (reachable, count) => `${reachable} 找到 ${count} 個模型。`,
+      endpointValidationFailed: '端點驗證失敗。',
+      validationFailed: '驗證失敗',
+      activationFailed: '啟用失敗',
+      deleteConfirm: name => `刪除 ${name}？`,
+      deleteFailed: '刪除失敗',
+      title: '自訂端點',
+      deleteEndpoint: '刪除端點',
+      emptyDescription: '在下方新增 OpenAI 相容端點。',
+      emptyTitle: '尚無自訂端點',
+      namePlaceholder: '我的代理',
+      contextPlaceholder: '自動'
+    },
+    profileScope: {
+      appliesTo: '套用至',
+      editsProfile: profile => `此頁面的變更將套用至「${profile}」設定檔。`
+    },
     closeSettings: '關閉設定',
     exportConfig: '匯出設定',
     importConfig: '匯入設定',
@@ -598,6 +643,7 @@ export const zhHant = defineLocale({
       daysAgo: count => `${count} 天前`
     },
     config: {
+      showOptions: '顯示選項',
       none: '無',
       noneParen: '(無)',
       builtinOnly: '僅內建',

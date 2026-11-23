@@ -28,6 +28,8 @@ interface ConfirmDialogProps {
   destructive?: boolean
   /** Close as soon as onConfirm resolves — for optimistic actions that finish in the background. */
   dismissOnConfirm?: boolean
+  /** Extra body content between the description and the footer (e.g. key/value details). */
+  children?: ReactNode
 }
 
 // Shared confirmation dialog: Enter confirms (from anywhere in the dialog),
@@ -44,7 +46,8 @@ export function ConfirmDialog({
   doneLabel,
   cancelLabel,
   destructive = false,
-  dismissOnConfirm = false
+  dismissOnConfirm = false,
+  children
 }: ConfirmDialogProps) {
   const { t } = useI18n()
   const [status, setStatus] = useState<'done' | 'idle' | 'saving'>('idle')
@@ -109,6 +112,8 @@ export function ConfirmDialog({
           <DialogTitle>{title}</DialogTitle>
           {description ? <DialogDescription>{description}</DialogDescription> : null}
         </DialogHeader>
+
+        {children}
 
         {error && (
           <div className="flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">

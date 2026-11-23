@@ -18,6 +18,10 @@ import type { ProfileInfo } from '@/types/hermes'
 
 // Canonical key for a profile: trimmed, empty → "default". Used everywhere we
 // compare a session's owning profile against the live gateway's profile.
+export function profileLabel(profile: Pick<ProfileInfo, 'display_name' | 'name'>): string {
+  return (profile.display_name ?? '').trim() || profile.name
+}
+
 export function normalizeProfileKey(name: string | null | undefined): string {
   const value = (name ?? '').trim()
 

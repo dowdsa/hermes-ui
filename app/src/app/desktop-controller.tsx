@@ -9,6 +9,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 're
 
 import { contributedPaneWidth, ContributedRightPaneBody, useWorkspaceRightPanes } from '@/app/contrib/pane-host'
 import { BootFailureOverlay } from '@/components/boot-failure-overlay'
+import { ConfirmHost } from '@/components/confirm-host'
 import { DesktopInstallOverlay } from '@/components/desktop-install-overlay'
 import { GatewayConnectingOverlay } from '@/components/gateway-connecting-overlay'
 import { DesktopOnboardingOverlay } from '@/components/onboarding'
@@ -1099,6 +1100,7 @@ export function DesktopController() {
       <CommandPalette />
       <PetGenerateOverlay />
       <SessionSwitcher />
+      <ConfirmHost />
       <FileActionDialogs />
       <RemoteFolderPicker />
 

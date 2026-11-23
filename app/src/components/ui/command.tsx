@@ -1,7 +1,7 @@
 import { Command as CommandPrimitive } from 'cmdk'
 import * as React from 'react'
 
-import { SearchIcon } from '@/lib/icons'
+import { Check, SearchIcon } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
@@ -95,6 +95,10 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
   )
 }
 
+function CommandItemCheck({ checked }: { checked: boolean }) {
+  return checked ? <Check className="ml-auto pl-2 text-foreground" size="0.75rem" /> : null
+}
+
 function CommandShortcut({ className, ...props }: React.ComponentProps<'span'>) {
   return (
     <span
@@ -111,6 +115,7 @@ export {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandItemCheck,
   CommandList,
   CommandSeparator,
   CommandShortcut

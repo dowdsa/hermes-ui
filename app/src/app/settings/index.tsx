@@ -19,6 +19,7 @@ import { AboutSettings } from './about-settings'
 import { AppearanceSettings } from './appearance-settings'
 import { ConfigSettings } from './config-settings'
 import { SECTIONS } from './constants'
+import { CustomEndpointsSettings } from './custom-endpoints-settings'
 import { GatewaySettings } from './gateway-settings'
 import { KeybindSettings } from './keybind-settings'
 import { KEYS_VIEWS, KeysSettings, type KeysView } from './keys-settings'
@@ -150,6 +151,13 @@ export function SettingsView({ onClose, onConfigSaved, onMainModelChanged }: Set
           id: 'pview:keys',
           label: t.settings.nav.providerApiKeys,
           onSelect: () => openProviderView('keys')
+        },
+        {
+          active: activeView === 'providers' && providerView === 'custom-endpoints',
+          icon: Globe,
+          id: 'pview:custom-endpoints',
+          label: t.settings.nav.providerCustomEndpoints,
+          onSelect: () => openProviderView('custom-endpoints')
         }
       ],
       gapBefore: true,
@@ -262,6 +270,8 @@ export function SettingsView({ onClose, onConfigSaved, onMainModelChanged }: Set
               onConfigSaved={onConfigSaved}
               onMainModelChanged={onMainModelChanged}
             />
+          ) : activeView === 'providers' && providerView === 'custom-endpoints' ? (
+            <CustomEndpointsSettings onConfigSaved={onConfigSaved} onMainModelChanged={onMainModelChanged} />
           ) : activeView === 'providers' ? (
             <ProvidersSettings onClose={onClose} onViewChange={setProviderView} view={providerView} />
           ) : activeView === 'keys' ? (
